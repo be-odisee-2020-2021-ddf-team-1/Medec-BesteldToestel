@@ -27,7 +27,6 @@ public class BesteldToestelServiceImp implements  BesteldToestelService {
 
     @Transactional(propagation= Propagation.REQUIRED,readOnly=false)
     public BesteldToestel createBesteldToestel(BesteldToestel toestel) {
-
         return besteldToestelRepository.save(toestel);
     }
     @Override

@@ -83,9 +83,9 @@ public class BesteldToestelRestController {
     
     // REST POST ... Aanmaken van een bestelde toestel met doorgegeven object
     @PostMapping(path={"/createBesteldToestel"},consumes = "application/json")
-    public String processNieuwtoestel(@Valid @RequestBody BesteldToestelData toestelData, Errors errors) {
+    public String processNieuwtoestel(@RequestBody BesteldToestel toestel, Errors errors) {
 
-        StringBuilder message=new StringBuilder();
+        StringBuilder message= new StringBuilder();
 
         try {
             // Are there any input validation errors detected by JSR 380 bean validation?
@@ -98,7 +98,7 @@ public class BesteldToestelRestController {
             }
 
             // Now that the input seems to be OK, let's create a new entry or update/delete an existing entry
-            message = new StringBuilder(besteldToestelService.createBesteldToestelData(toestelData));
+            message = new StringBuilder(String.valueOf(besteldToestelService.createBesteldToestel(toestel)));
 
         } catch (IllegalArgumentException e) {
             // Nothing special needs to be done
