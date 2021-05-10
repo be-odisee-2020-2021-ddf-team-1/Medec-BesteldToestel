@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     url: jdbc:mysql://localhost:3306/medec
     username: Medec
@@ -8,7 +10,8 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-        current_session_context_class: org.springframework.orm.hibernate4.SpringSessionContext
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
 server:
   port: 8081
+
