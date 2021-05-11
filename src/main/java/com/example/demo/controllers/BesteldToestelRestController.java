@@ -27,23 +27,8 @@ public class BesteldToestelRestController {
     @Autowired
     protected BesteldToestelService besteldToestelService; // ready for dependency injection
 
-    @RequestMapping("/OverviewBesteldeToestellen.html")
-    public String OverviewBesteldeToestellen(){
-        return "OverviewBesteldeToestellen";
-    }
-    @RequestMapping("/CreateBesteldToestel.html")
-    public String CreateBesteldToestel(){ return "CreateBesteldToestel"; }
-    @RequestMapping("/DetailBesteldToestel/{id}.html")
-    public String DetailBesteldToestel(){
-        return "DetailBesteldToestel";
-    }
-    @RequestMapping("/EditBesteldToestel.html")
-    public String EditBesteldToestel(){
-        return "CreateBesteldToestel";
-    }
-
-
-    @RequestMapping(value={"/besteldetoestellen"},method= RequestMethod.GET)
+    @RequestMapping(path={"/besteldetoestellen"},method= RequestMethod.GET)
+    //@GetMapping("//besteldetoestellen")
     public @ResponseBody
     List<BesteldToestel> getBesteldeToestellen(){
         return besteldToestelService.getBesteldeToestellen();
@@ -57,19 +42,12 @@ public class BesteldToestelRestController {
 
     @GetMapping("/{id}")
     public BesteldToestel getToestelById(@PathVariable("id") Long id) {
-
         if (besteldToestelRepo.findById(id).isPresent()) {
             return besteldToestelRepo.findById(id).get();
         } else {
             return  null;
         }
     }
-    // Test request
-/*    @RequestMapping(value={"/deleteBesteldToestel"},method=RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteToestel(Integer id){
-        besteldToestelService.deleteBesteldToestel(id);
-    }*/
 
     @PostMapping(path = "/deleteBesteldToestel",consumes = "application/json")
     public String deleteToestel( @RequestBody BesteldToestel toestel) {
@@ -107,31 +85,6 @@ public class BesteldToestelRestController {
 
     }
 
-    //Test Request werkt
-    // REST POST ... Aanmaken van een bestelde toestel
-/*    @RequestMapping(value={"/createBesteldToestel"},method=RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody BesteldToestel createtoestel(String naam, double prijs, Long aankoopdatumMillis)
-            throws BindException {
-        BesteldToestel toestel = new BesteldToestel();
-        toestel.setNaam(naam);
-        if(aankoopdatumMillis != null){
-            Date aankoopdatum = new Date(aankoopdatumMillis);
-            toestel.setAankoopdatum(aankoopdatum);
-        }
-        toestel.setPrijs(prijs);
-        return besteldToestelService.createBesteldToestel(toestel);
-    }*/
-
-
-    /*/ REST PUT ... breng de toestand van bestaande resource van de client naar de server
-    @RequestMapping(value={"/updatebesteldtoestel/{id}"},method=RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void putPersoon(@PathVariable("id") Integer id, @RequestBody BesteldToestel toestel){
-
-        toestel.setBesteldToestelId(id);
-        besteldToestelService.UpdateBesteldToestel(toestel);
-    }*/
 
     //Test werkt zonder prijs
     // REST PUT ... breng de toestand van bestaande resource van de client naar de server
