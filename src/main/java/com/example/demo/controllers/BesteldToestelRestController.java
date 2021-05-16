@@ -34,11 +34,11 @@ public class BesteldToestelRestController {
         return besteldToestelService.getBesteldeToestellen();
     }
 
-    @RequestMapping(value={"/besteldtoesteldetails/{id}"},method=RequestMethod.GET)
-    public @ResponseBody BesteldToestel getToestel(@PathVariable("id") Integer id) {
-        System.out.println("id = " + id);
-        return besteldToestelService.getBesteldToestelById(id);
-    }
+//    @RequestMapping(value={"/besteldtoesteldetails/{id}"},method=RequestMethod.GET)
+//    public @ResponseBody BesteldToestel getToestel(@PathVariable("id") Integer id) {
+//        System.out.println("id = " + id);
+//        return besteldToestelService.getBesteldToestelById(id);
+//    }
 
     @GetMapping("/{id}")
     public BesteldToestel getToestelById(@PathVariable("id") Long id) {
@@ -90,13 +90,16 @@ public class BesteldToestelRestController {
     // REST PUT ... breng de toestand van bestaande resource van de client naar de server
     @RequestMapping(value={"/updatebesteldtoestel"},method=RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void putToestel( Integer id, String naam, Double prijs, Long aankoopdatumMillis){
+    public void putToestel( Integer id, String naam, Double prijs, Long aankoopdatumMillis, Integer planningId){
         BesteldToestel toestel = new BesteldToestel();
         toestel.setBesteldToestelId(id);
         toestel.setNaam(naam);
         if(aankoopdatumMillis != null){
             Date aankoopdatum = new Date(aankoopdatumMillis);
             toestel.setAankoopdatum(aankoopdatum);
+        }
+        if(planningId != null){
+            toestel.setPlanningId(planningId);
         }
         toestel.setPrijs(prijs);
         besteldToestelService.UpdateBesteldToestel(toestel);
